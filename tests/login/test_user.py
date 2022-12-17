@@ -1,10 +1,6 @@
-from hashlib import sha256
 from pytest import raises
 from src.login.user import User
-
-
-def encrypt(string: str) -> str:
-    return sha256(string.encode('utf-8')).hexdigest()
+from tests.utils import encrypt
 
 
 class TestUser:
