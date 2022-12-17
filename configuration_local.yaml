@@ -1,0 +1,4 @@
+database:
+  user: 'jrubiomo'
+  password: '2909Jarm'
+  url: 'localhost:3306'

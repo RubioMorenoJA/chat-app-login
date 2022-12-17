@@ -12,6 +12,9 @@ class User(BaseModel):
     email: str = ''
     password: str = ''
 
+    class Config:
+        orm_mode = True
+
     @validator('id')
     def set_id(cls, id: int) -> int:
         if type(id) != int:
