@@ -4,6 +4,11 @@ from src.ddbb.models.user import User as UserDDBBModel
 from src.login.user import User
 
 
+__all__ = ['get_users', 'get_user_by_username', 'get_user_by_email', 'get_user_by_id', 'get_user', \
+    'create_user', 'update_user', 'delete_user'
+    ]
+
+    
 def get_user_by_id(db: Session, user_id: int):
     return db.query(UserDDBBModel).filter(UserDDBBModel.id == user_id).first()
 

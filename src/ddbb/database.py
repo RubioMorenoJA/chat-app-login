@@ -8,6 +8,13 @@ from sqlalchemy.orm import sessionmaker
 from src.configuration import configuration
 
 
+__all__ = ['create_db_tables', 'SessionLocal', 'Base']
+
+
+def create_db_tables(base, engine) -> None:
+    base.metadata.create_all(bind=engine)    
+
+
 SQLALCHEMY_DATABASE_DATABASE = 'chat_app'
 SQLALCHEMY_DATABASE_USER = configuration.get_database()['user']
 SQLALCHEMY_DATABASE_PASSWORD = configuration.get_database()['password']

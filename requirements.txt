@@ -5,3 +5,4 @@ sqlalchemy
 pymysql
 PyYAML
 cryptography
+httpx
