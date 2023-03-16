@@ -10,6 +10,11 @@ test_users_data: list[dict] = load_resource(generate_path(path.abspath(""), "tes
 
 class TestLoginUserAPI:
 
-    def test_get_user_by_id():    
+    def test_get_user_by_id(self):
+        """
+        Test getting a user by its id
+        Returns:
+
+        """
         # response = client.get()
         pass

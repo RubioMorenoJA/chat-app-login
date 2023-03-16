@@ -3,7 +3,7 @@ User database model
 """
 from typing import Type
 from sqlalchemy import Column, Integer, String
-from tests.ddbb.database import Base
+from src.ddbb.database import Base
 
 
 class User(Base):

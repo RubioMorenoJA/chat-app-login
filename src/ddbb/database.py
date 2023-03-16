@@ -8,11 +8,11 @@ from sqlalchemy.orm import sessionmaker
 from src.configuration import configuration
 
 
-__all__ = ['create_db_tables', 'SessionLocal', 'Base']
+__all__ = ['create_db_tables', 'SessionLocal', 'Base', 'engine']
 
 
 def create_db_tables(base, engine) -> None:
-    base.metadata.create_all(bind=engine)    
+    base.metadata.create_all(bind=engine)
 
 
 SQLALCHEMY_DATABASE_DATABASE = 'chat_app'

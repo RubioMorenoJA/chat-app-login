@@ -1,4 +1,5 @@
 database:
   user: 'jrubiomo'
   password: '2909Jarm'
-  url: 'localhost:3306'
+  root_password: '<-2909Jarm->'
+  url: '127.0.0.1:3306'

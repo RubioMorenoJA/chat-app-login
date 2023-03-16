@@ -4,7 +4,7 @@ from os import path
 
 
 CONFIGURATION_FILE = path.abspath('configuration_local.yaml')
-# CONFIGURATION_FILE = path.abspath('configuration.yaml'
+# CONFIGURATION_FILE = path.abspath('configuration.yaml')
 
 
 class Configuration:
@@ -21,11 +21,13 @@ class Configuration:
 
     def __get_configuration(self) -> dict | None:
         configuration: dict | None = None
-        try:            
+        try:
             with open(CONFIGURATION_FILE, 'r') as conf_file:
                 configuration = load(conf_file, Loader=Loader)
         except IOError as exc:
-            print(f'IOError: {exc.args}\nTraceback: {traceback.format_exc}')        
+            print(
+                f'IOError: {exc.args}\nTraceback: {traceback.format_exc}\nConfiguration file path: {CONFIGURATION_FILE}'
+            )
         return configuration
 
 

@@ -1,5 +1,3 @@
-from pytest import raises, fixture
-from fastapi import Depends
 from sqlalchemy.orm import Session
 from src.login.user import User
 from src.ddbb.crud.user import get_users, get_user_by_username, get_user_by_email, get_user_by_id, get_user, \

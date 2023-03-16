@@ -1,6 +1,8 @@
 # vscode
-.vscode
+.vscode*
+# jet brains
+.idea
 
 # python
-__pycache__
-.pytest_cache
+*__pycache__*
+*.pytest_cache*

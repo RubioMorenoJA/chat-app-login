@@ -2,10 +2,10 @@ import traceback
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import SQLAlchemyError
-from sqlalchemy.orm.exc import ObjectDeletedError
 from dependencies import get_db, verify_application_json
 from src.login.user import User
-from src.ddbb.database import create_db_tables, Base, engine
+from src.ddbb.database import create_db_tables, engine
+from src.ddbb.models.user import Base
 from src.ddbb.crud.user import *
 
 
@@ -29,12 +29,22 @@ create_db_tables(Base, engine)
 async def get_token():
     raise HTTPException(status_code=501)
 
-@router.get('/{id}', response_model=User, response_model_exclude={'password'})
-async def get_user(id: int, db: Session = Depends(get_db)):
-    db_user = get_user_by_id(db, id)
+
+@router.get('/{user_id}', response_model=User, response_model_exclude={'password'})
+async def get_user(user_id: int, db: Session = Depends(get_db)):
+    db_user = get_user_by_id(db, user_id)
     if db_user is None:
         raise HTTPException(status_code=404)
     return db_user
+
+
+@router.get('', response_model=list[User], response_model_exclude={'password'})
+async def get_all_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    db_user = get_users(db, skip, limit)
+    if db_user is None:
+        raise HTTPException(status_code=404)
+    return db_user
+
 
 @router.post('/create', response_model=User, response_model_exclude={'password'})
 async def create_new_user(new_user: User, db: Session = Depends(get_db)):
@@ -44,17 +54,20 @@ async def create_new_user(new_user: User, db: Session = Depends(get_db)):
         raise SystemError(f'Unable to save user:\n{exc.args}\n{traceback.format_exc}')
     return new_user
 
+
 @router.put('/update', response_model=User, response_model_exclude={'password'})
-async def modify_user(update_user: User, db: Session = Depends(get_db)):
-    db_user = update_user(db, update_user)
+async def modify_user(updated_user: User, db: Session = Depends(get_db)):
+    db_user = update_user(db, updated_user)
     if db_user is None:
         raise HTTPException(status_code=200)
     return db_user
 
-@router.delete('/delete/{id}', response_model=User)
-async def delete_user_by_id(id: int, db: Session = Depends(get_db)):
-    raise HTTPException(status_code=501)
+
+@router.delete('/delete/{user_id}', response_model=User)
+async def delete_selected_user_by_id(user_id: int, db: Session = Depends(get_db)):
+    return delete_user_by_id(db, user_id)
+
 
 @router.delete('/delete', response_model=User)
-async def delete_user(delete_user: User, db: Session = Depends(get_db)):
-    return delete_user(db, delete_user)
+async def delete_selected_user(deleted_user: User, db: Session = Depends(get_db)):
+    return delete_user(db, deleted_user)
